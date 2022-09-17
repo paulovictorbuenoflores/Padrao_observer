@@ -21,7 +21,7 @@ public class Porteiro extends Thread {
 
     //metodo para registrar o observador
     public void addChegadaAniversarianteObserver(ChegadaAniversarianteObserver observer){
-    
+    this.observers.add(observer);
     }
     @Override
     public void run() {
@@ -34,7 +34,10 @@ public class Porteiro extends Thread {
                 ChegadaAniversarianteEvent event = new ChegadaAniversarianteEvent(new Date());
 
                 //notificar os interessados no evento que ele chegou/ocorreu
-            }
+                for(ChegadaAniversarianteObserver observer: this.observers){
+                    observer.chegou(event);
+                }
+            }else{System.out.print("Alarme false");}
         }
     }
 }
